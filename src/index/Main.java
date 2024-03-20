@@ -3,6 +3,8 @@ package index;
 import controller.UserController;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import views.LoginPage;
+import views.RegisterPage;
 
 public class Main extends Application{
 	protected DatabaseConnection dbConnection = new DatabaseConnection();
@@ -19,8 +21,11 @@ public class Main extends Application{
 	}
 
 	@Override
-	public void start(Stage arg0) throws Exception {
+	public void start(Stage stage) throws Exception {
 		// TODO Auto-generated method stub
+		LoginPage regist = new LoginPage(stage);
+		stage.setScene(regist.getScene());
+		stage.show();
 		
 	}
 

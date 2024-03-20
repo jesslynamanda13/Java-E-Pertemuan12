@@ -4,10 +4,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import index.DatabaseConnection;
+import index.DatabaseSingleton;
 import models.User;
 
 public class UserController {
-	public DatabaseConnection dbConnection = new DatabaseConnection();
+	private static DatabaseConnection dbConnection = DatabaseSingleton.getInstance();
 	
 	public void insertDefaultUsers() {
 		try {
@@ -26,7 +27,7 @@ public class UserController {
 		
 		
 	}
-	public boolean insertUser(User user) {
+	public static boolean insertUser(User user) {
 		// validasi apakah user udh ada belum
 		if(userExists(user)) {
 			return false;
@@ -46,7 +47,7 @@ public class UserController {
 		return false;
 	}
 	
-	public boolean userExists(User user) {
+	public static boolean userExists(User user) {
 		String query = "SELECT COUNT(*) FROM users WHERE email = ?";
 		try {
 			PreparedStatement stmt = dbConnection.connection.prepareStatement(query);
@@ -63,6 +64,20 @@ public class UserController {
 		return false;
 	}
 	
+	public static boolean loginUser(String email, String password) {
+		String query = "SELECT * FROM users WHERE email = ? AND password = ?";
+	    try {
+	        PreparedStatement stmt = dbConnection.connection.prepareStatement(query);
+	        stmt.setString(1, email);
+	        stmt.setString(2, password);
+	        ResultSet rs = stmt.executeQuery();
+	        
+	        return rs.next();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
 	
 
 }

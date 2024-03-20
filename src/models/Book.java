@@ -1,5 +1,8 @@
 package models;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class Book {
 	protected String title;
 	protected String author;
@@ -39,6 +42,22 @@ public class Book {
 
 	public void setGenre(String genre) {
 		this.genre = genre;
+	}
+
+
+	public StringProperty titleProperty() {
+		// TODO Auto-generated method stub
+		return new SimpleStringProperty(title);
+	}
+	
+	public StringProperty authorProperty() {
+		// TODO Auto-generated method stub
+		return new SimpleStringProperty(author);
+	}
+	
+	public StringProperty genreProperty() {
+		// TODO Auto-generated method stub
+		return new SimpleStringProperty(genre);
 	}
 	
 }
